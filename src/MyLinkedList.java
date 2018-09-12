@@ -53,18 +53,44 @@ public class MyLinkedList {
             throw new Exception("List is already empty");
         }
         Node removed = head;
-        if(getSize() == 1) {
-            head = null;
-            tail = null;
+        if(this.getSize() == 1) {
+            this.head = null;
+            this.tail = null;
         } else {
-            head = head.next;
+            this.head = this.head.next;
         }
+        this.size--;
         return removed;
     }
 
     public Node removeLast() throws Exception{
         if(isEmpty()) {
-            throw ne
+            throw new Exception("List is already empty");
         }
+
+        Node removed = this.tail;
+        if (this.getSize() == 1) {
+            this.head = null;
+            this.tail = null;
+        } else {
+            Node secondLast = getNodeAt(this.getSize() - 2);
+            secondLast.next = null;
+            this.tail = secondLast;
+        }
+        size--;
+        return removed;
+    }
+
+    public Node getNodeAt(int index) throws Exception{
+        if (index < 0 || index > this.getSize())
+            throw new Exception("Invalid Index");
+
+        Node returnNode = this.head;
+        int count = 0;
+        while(count < index) {
+            returnNode = returnNode.next;
+            count++;
+        }
+        return returnNode;
     }
 }
