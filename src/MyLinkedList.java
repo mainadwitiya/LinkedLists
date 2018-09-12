@@ -123,23 +123,23 @@ public class MyLinkedList {
     }
 
     public void deleteMAfterN(int m, int n) throws Exception{
+        // if the list is too small
         if (m+n > this.getSize()) {
             throw new Exception("List is too small");
         }
 
-        Node nthNode = this.head;
-        Node mthNode = this.head;
+        Node nthNode = this.head;           // the node after which nodes will be deleted
+        Node mthNode = this.head;           // the node until which nodes are to be deleted
         for (int i=0; i<n+m; i++) {
-            if(i<n-1) {
+            if(i<n-1) {                     // increment nthNode n times
                 nthNode = nthNode.next;
             }
-            mthNode = mthNode.next;
+            mthNode = mthNode.next;         // increase mthNode (n + m) times
             if (i == n + m - 1) {
-                System.out.println(nthNode.data + " " + mthNode.data);
-                nthNode.next = mthNode;
-            }
+                nthNode.next = mthNode;     // set the next of nthNode to mthNode "removing"
+            }                               // m nodes in the process
         }
-    }
+    }                                       // fin
 
     class Node {
         int data;

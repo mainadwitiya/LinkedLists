@@ -14,7 +14,7 @@ public class Main {
             ll.addLast(i);
         }
         ll.display();
-        ll.deleteMAfterN(1,1);
+        ll.deleteMAfterN(2,1);
         ll.display();
     }
 }
