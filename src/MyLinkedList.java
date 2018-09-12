@@ -122,7 +122,24 @@ public class MyLinkedList {
         this.tail.next = null;
     }
 
+    public void deleteMAfterN(int m, int n) throws Exception{
+        if (m+n > this.getSize()) {
+            throw new Exception("List is too small");
+        }
 
+        Node nthNode = this.head;
+        Node mthNode = this.head;
+        for (int i=0; i<n+m; i++) {
+            if(i<n-1) {
+                nthNode = nthNode.next;
+            }
+            mthNode = mthNode.next;
+            if (i == n + m - 1) {
+                System.out.println(nthNode.data + " " + mthNode.data);
+                nthNode.next = mthNode;
+            }
+        }
+    }
 
     class Node {
         int data;

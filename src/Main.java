@@ -10,5 +10,11 @@ public class Main {
         ll.display();
         ll.reverseInGroup(3);
         ll.display();
+        for(int i=10; i<20; i++) {
+            ll.addLast(i);
+        }
+        ll.display();
+        ll.deleteMAfterN(1,1);
+        ll.display();
     }
 }
