@@ -1,14 +1,4 @@
 public class MyLinkedList {
-    class Node {
-        int data;
-        Node next;
-
-        public Node(int data, Node next) {
-            this.data = data;
-            this.next = next;
-        }
-    }
-
     private Node head, tail;
     private int size;
 
@@ -29,7 +19,7 @@ public class MyLinkedList {
     public void addFirst(int data) {
         Node newNode = new Node(data, head);
 
-        if(isEmpty()) {
+        if (isEmpty()) {
             tail = newNode;
         }
         head = newNode;
@@ -48,12 +38,12 @@ public class MyLinkedList {
         size++;
     }
 
-    public Node removeFirst() throws Exception{
+    public Node removeFirst() throws Exception {
         if (isEmpty()) {
             throw new Exception("List is already empty");
         }
         Node removed = head;
-        if(this.getSize() == 1) {
+        if (this.getSize() == 1) {
             this.head = null;
             this.tail = null;
         } else {
@@ -63,8 +53,8 @@ public class MyLinkedList {
         return removed;
     }
 
-    public Node removeLast() throws Exception{
-        if(isEmpty()) {
+    public Node removeLast() throws Exception {
+        if (isEmpty()) {
             throw new Exception("List is already empty");
         }
 
@@ -92,5 +82,55 @@ public class MyLinkedList {
             count++;
         }
         return returnNode;
+    }
+
+    public void display() {
+        Node currentNode = this.head;
+        while(currentNode != null) {
+            System.out.print(currentNode.data + "->");
+            currentNode = currentNode.next;
+        }
+        System.out.println("-------------------------");
+    }
+
+    public void reverseInGroup(int groupLength) throws Exception {
+        if (this.getSize() < groupLength) {
+            throw new Exception("List is too small");
+        }
+
+        MyLinkedList finalList= new MyLinkedList();
+        MyLinkedList tempList = new MyLinkedList();
+
+        Node currentNode = this.head;
+        while(currentNode != null) {
+            for (int i=0; i< groupLength; i++) {
+                tempList.addFirst(currentNode.data);
+                currentNode = currentNode.next;
+            }
+
+            if(finalList.isEmpty()) {
+                finalList = tempList;
+                tempList = new MyLinkedList();
+            } else {
+                finalList.tail.next = tempList.head;
+                finalList.tail = tempList.tail;
+            }
+        }
+        finalList.size = this.getSize();
+        this.head = finalList.head;
+        this.tail = finalList.tail;
+        this.tail.next = null;
+    }
+
+
+
+    class Node {
+        int data;
+        Node next;
+
+        public Node(int data, Node next) {
+            this.data = data;
+            this.next = next;
+        }
     }
 }
