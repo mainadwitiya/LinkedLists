@@ -81,13 +81,13 @@ public class MyLinkedList {
         return removed;
     }
 
-    public Node getNodeAt(int index) throws Exception{
+    public Node getNodeAt(int index) throws Exception {
         if (index < 0 || index > this.getSize())
             throw new Exception("Invalid Index");
 
         Node returnNode = this.head;
         int count = 0;
-        while(count < index) {
+        while (count < index) {
             returnNode = returnNode.next;
             count++;
         }
