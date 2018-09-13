@@ -135,9 +135,11 @@ public class MyLinkedList {
                 nthNode = nthNode.next;
             }
             mthNode = mthNode.next;         // increase mthNode (n + m) times
-            if (i == n + m - 1) {
-                nthNode.next = mthNode;     // set the next of nthNode to mthNode "removing"
-            }                               // m nodes in the process
+            if (i == n + m - 1) {           // set the next of nthNode to mthNode "removing"
+                nthNode.next = mthNode;     // m nodes in the process
+            } else if (n==0) {              // if n=0 set head to mthNode
+                this.head = mthNode;
+            }
         }
     }                                       // fin
 
