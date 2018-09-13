@@ -135,12 +135,17 @@ public class MyLinkedList {
                 nthNode = nthNode.next;
             }
             mthNode = mthNode.next;         // increase mthNode (n + m) times
-            if (i == n + m - 1) {           // set the next of nthNode to mthNode "removing"
-                nthNode.next = mthNode;     // m nodes in the process
-            } else if (n==0) {              // if n=0 set head to mthNode
-                this.head = mthNode;
-            }
+//            if (i == n + m - 1) {           // set the next of nthNode to mthNode "removing"
+//                nthNode.next = mthNode;     // m nodes in the process
+//            } else if (n==0) {
+//                this.head = mthNode;
+//            }
         }
+        if (n==0) {                             // if n=0 set head to mthNode
+            this.head = mthNode;
+        } else {
+            nthNode.next = mthNode;             // set the next of nthNode to mthNode effectively
+    }                                           // "removing" m nodes in the process
         this.size = this.getSize() - m;
     }                                       // fin
 
