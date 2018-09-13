@@ -141,6 +141,7 @@ public class MyLinkedList {
                 this.head = mthNode;
             }
         }
+        this.size = this.getSize() - m;
     }                                       // fin
 
     class Node {
