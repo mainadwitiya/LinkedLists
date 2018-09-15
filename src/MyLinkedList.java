@@ -272,6 +272,165 @@ public class MyLinkedList {
         this.tail.next = null;
     }
 
+    public boolean isPalindrome() {
+        HeapMover left = new HeapMover(this.head);
+        return this.isPalindrome();
+    }
+
+    private boolean isPalindrome(HeapMover left, Node right) {
+        if (right == null) {
+            return true;
+        }
+        boolean isPalin = this.isPalindrome(left, right.next);
+
+        if (isPalin == false) {
+            return false;
+        } else {
+            if (left.node.data == right.data) {
+                left.node =left.node.next;
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public Node mid() {
+        return mid(this.head);
+    }
+
+    private Node mid(Node root) {
+        Node fast = this.head;
+        Node slow = this.head;
+
+        while(fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    private void fold(HeapMover left, Node right, int floor) {
+        if (right == null) {
+            return;
+        }
+
+        this.fold(left, right.next, floor+1);
+        if(floor > this.getSize()/2) {
+            Node origLeftNode = left.node.next;
+            left.node.next = right;
+            right.next = origLeftNode;
+            left.node = origLeftNode;
+        } else if (floor == this.getSize()/2) {
+            this.tail = right;
+            this.tail.next = null;
+        }
+    }
+
+    public int kthFromEnd(int k) {
+        return kthNodeFromEnd(k);
+    }
+
+    private int kthNodeFromEnd(int k) {
+        Node slow = this.head;
+        Node fast = this.head;
+
+        for(int i=0; i<k; i++) {
+            fast = fast.next;
+        }
+
+        while (fast != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        return slow.data;
+    }
+
+    public int find(int key) {
+        int rv = this.find(key, this.head);
+        return rv;
+    }
+
+    private int find(int key, Node node) {
+        if (node == null) {
+            return -1;
+        }
+        if (node.data == key) {
+            return 0;
+        } else {
+            int rv = find(key, node.next);
+            if (rv == -1) {
+                return rv;
+            } else {
+                if (rv == -1) {
+                    return rv;
+                } else {
+                    return rv + 1;
+                }
+            }
+        }
+    }
+
+    public MyLinkedList merge(MyLinkedList other) {
+            Node thisTemp = this.head;
+            Node otherTemp = other.head;
+
+            MyLinkedList returnList = new MyLinkedList();
+
+            while(thisTemp != null && otherTemp != null) {
+                if (thisTemp.data > otherTemp.data) {
+                    returnList.addLast(thisTemp.data);
+                    thisTemp = thisTemp.next;
+                } else {
+                    returnList.addLast(otherTemp.data);
+                    otherTemp = otherTemp.next;
+                }
+            }
+
+            while (thisTemp != null) {
+                returnList.addLast(thisTemp.data);
+                thisTemp = thisTemp.next;
+            }
+
+            while (otherTemp != null) {
+                returnList.addLast(otherTemp.data);
+                otherTemp = otherTemp.next;
+            }
+            return returnList;
+    }
+
+    public void mergeSort() {
+        MyLinkedList sorted = mergeSortHelper();
+        this.head = sorted.head;
+        this.tail = sorted.tail;
+    }
+
+    private MyLinkedList mergeSortHelper() {
+        if (this.getSize() == 1) {
+            return;
+        }
+
+        Node midNode = this.mid();
+        Node midNext = midNode.next;
+
+        MyLinkedList firstHalf = new MyLinkedList();
+        firstHalf.head = this.head;
+        firstHalf.tail = midNode;
+        firstHalf.tail.next = null;
+        firstHalf.size = (this.getSize()+1)/2;
+
+        MyLinkedList secondHalf = new MyLinkedList();
+        secondHalf.head = midNext;
+        secondHalf.tail = this.tail;
+        secondHalf.size = this.getSize()/2;
+
+        firstHalf = firstHalf.mergeSortHelper();
+        secondHalf = secondHalf.mergeSortHelper();
+
+        return (firstHalf.merge(secondHalf));
+    }
+
     public void deleteMAfterN(int m, int n) throws Exception {
         // if the list is too small
         if (m + n > this.getSize()) {
