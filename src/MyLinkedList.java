@@ -461,6 +461,25 @@ public class MyLinkedList {
         }
     }
 
+    // remove duplicates from a sorted LinkedList
+    public void removeDuplicates() throws Exception {
+        MyLinkedList newList = new MyLinkedList();
+
+        Node removed = this.removeFirst();
+        newList.addFirst(removed.data);
+        while (!this.isEmpty()) {
+            removed = this.removeFirst();
+            if (newList.tail.data != removed.data) {
+                newList.addLast(removed.data);
+            }
+        }
+
+        this.head = newList.head;
+        this.tail = newList.tail;
+        this.size = newList.size;
+    }
+
+    //delete m nodes after n nodes
     public void deleteMAfterN(int m, int n) throws Exception {
         // if the list is too small
         if (m + n > this.getSize()) {
@@ -482,6 +501,62 @@ public class MyLinkedList {
         }                                           // "removing" m nodes in the process
         this.size = this.getSize() - m;
     }                                       // fin
+
+
+    public void removeEveryKthNode(int k) throws Exception{
+        MyLinkedList newList = new MyLinkedList();
+        int count = 1;
+
+        while (!this.isEmpty()) {
+            Node removed = this.removeFirst();
+            if (count % k != 0) {
+                newList.addLast(removed.data);
+            }
+            count++;
+        }
+        this.head = newList.head;
+        this.tail = newList.tail;
+        this.size = newList.size;
+    }
+
+    public void sort012Links() throws Exception {
+        MyLinkedList zeroList = new MyLinkedList();
+        MyLinkedList oneList = new MyLinkedList();
+        MyLinkedList twoList = new MyLinkedList();
+        while (!this.isEmpty()) {
+            Node removed = this.removeFirst();
+            if (removed.data == 0) {
+                zeroList.addLast(removed.data);
+            } else if (removed.data == 1) {
+                oneList.addLast(removed.data);
+            } else {
+                zeroList.addLast(removed.data);
+            }
+        }
+
+        this.head = zeroList.head;
+        zeroList.tail.next = oneList.head;
+        oneList.tail.next = twoList.head;
+        this.tail = twoList.tail;
+    }
+
+    public void addOne() {
+        int carry = addOne(this.head);
+        if (carry != 0) {
+            this.addLast(carry);
+        }
+    }
+
+    private int addOne(Node node) {
+        if (node == null) {
+            return 1;
+        }
+
+        int carry = this.addOne(node.next);
+        node.data = node.data + carry;
+        node.data = node.data%10;
+        return (carry/10);
+    }
 
     class Node {
         int data;

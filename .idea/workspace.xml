@@ -38,12 +38,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="10603" />
+          <entry key="java" value="12091" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="10603" />
+          <entry key="JAVA" value="12091" />
         </counts>
       </usages-collector>
     </session>
@@ -53,8 +53,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/MyLinkedList.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="434" column="43" selection-start-line="434" selection-start-column="43" selection-end-line="434" selection-end-column="43" />
+            <state relative-caret-position="95">
+              <caret line="521" column="48" selection-start-line="521" selection-start-column="48" selection-end-line="521" selection-end-column="48" />
               <folding>
                 <element signature="e#210#211#0" expanded="true" />
                 <element signature="e#242#243#0" expanded="true" />
@@ -189,12 +189,12 @@
       <workItem from="1536826426661" duration="3532000" />
       <workItem from="1536875263534" duration="3383000" />
       <workItem from="1536901225181" duration="9642000" />
-      <workItem from="1536995575012" duration="1910000" />
+      <workItem from="1536995575012" duration="4076000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34592000" />
+    <option name="totallyTimeSpent" value="36758000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -305,8 +305,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/MyLinkedList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="434" column="43" selection-start-line="434" selection-start-column="43" selection-end-line="434" selection-end-column="43" />
+        <state relative-caret-position="95">
+          <caret line="521" column="48" selection-start-line="521" selection-start-column="48" selection-end-line="521" selection-end-column="48" />
           <folding>
             <element signature="e#210#211#0" expanded="true" />
             <element signature="e#242#243#0" expanded="true" />
