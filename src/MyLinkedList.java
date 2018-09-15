@@ -238,6 +238,7 @@ public class MyLinkedList {
 
     private class HeapMover {
         Node node;
+
         public HeapMover(Node node) {
             this.node = node;
         }
@@ -287,7 +288,7 @@ public class MyLinkedList {
             return false;
         } else {
             if (left.node.data == right.data) {
-                left.node =left.node.next;
+                left.node = left.node.next;
                 return true;
             } else {
                 return false;
@@ -303,7 +304,7 @@ public class MyLinkedList {
         Node fast = this.head;
         Node slow = this.head;
 
-        while(fast.next != null && fast.next.next != null) {
+        while (fast.next != null && fast.next.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
@@ -315,13 +316,13 @@ public class MyLinkedList {
             return;
         }
 
-        this.fold(left, right.next, floor+1);
-        if(floor > this.getSize()/2) {
+        this.fold(left, right.next, floor + 1);
+        if (floor > this.getSize() / 2) {
             Node origLeftNode = left.node.next;
             left.node.next = right;
             right.next = origLeftNode;
             left.node = origLeftNode;
-        } else if (floor == this.getSize()/2) {
+        } else if (floor == this.getSize() / 2) {
             this.tail = right;
             this.tail.next = null;
         }
@@ -335,7 +336,7 @@ public class MyLinkedList {
         Node slow = this.head;
         Node fast = this.head;
 
-        for(int i=0; i<k; i++) {
+        for (int i = 0; i < k; i++) {
             fast = fast.next;
         }
 
@@ -373,31 +374,31 @@ public class MyLinkedList {
     }
 
     public MyLinkedList merge(MyLinkedList other) {
-            Node thisTemp = this.head;
-            Node otherTemp = other.head;
+        Node thisTemp = this.head;
+        Node otherTemp = other.head;
 
-            MyLinkedList returnList = new MyLinkedList();
+        MyLinkedList returnList = new MyLinkedList();
 
-            while(thisTemp != null && otherTemp != null) {
-                if (thisTemp.data > otherTemp.data) {
-                    returnList.addLast(thisTemp.data);
-                    thisTemp = thisTemp.next;
-                } else {
-                    returnList.addLast(otherTemp.data);
-                    otherTemp = otherTemp.next;
-                }
-            }
-
-            while (thisTemp != null) {
+        while (thisTemp != null && otherTemp != null) {
+            if (thisTemp.data > otherTemp.data) {
                 returnList.addLast(thisTemp.data);
                 thisTemp = thisTemp.next;
-            }
-
-            while (otherTemp != null) {
+            } else {
                 returnList.addLast(otherTemp.data);
                 otherTemp = otherTemp.next;
             }
-            return returnList;
+        }
+
+        while (thisTemp != null) {
+            returnList.addLast(thisTemp.data);
+            thisTemp = thisTemp.next;
+        }
+
+        while (otherTemp != null) {
+            returnList.addLast(otherTemp.data);
+            otherTemp = otherTemp.next;
+        }
+        return returnList;
     }
 
     public void mergeSort() {
@@ -408,7 +409,7 @@ public class MyLinkedList {
 
     private MyLinkedList mergeSortHelper() {
         if (this.getSize() == 1) {
-            return;
+            return this;
         }
 
         Node midNode = this.mid();
@@ -418,17 +419,46 @@ public class MyLinkedList {
         firstHalf.head = this.head;
         firstHalf.tail = midNode;
         firstHalf.tail.next = null;
-        firstHalf.size = (this.getSize()+1)/2;
+        firstHalf.size = (this.getSize() + 1) / 2;
 
         MyLinkedList secondHalf = new MyLinkedList();
         secondHalf.head = midNext;
         secondHalf.tail = this.tail;
-        secondHalf.size = this.getSize()/2;
+        secondHalf.size = this.getSize() / 2;
 
         firstHalf = firstHalf.mergeSortHelper();
         secondHalf = secondHalf.mergeSortHelper();
 
         return (firstHalf.merge(secondHalf));
+    }
+
+    public void oddEven() throws Exception {
+        MyLinkedList odd = new MyLinkedList();
+        MyLinkedList even = new MyLinkedList();
+
+        while (this.getSize() != 0) {
+            Node removed = this.removeFirst();
+            if (removed.data % 2 == 0) {
+                even.addLast(removed.data);
+            } else {
+                odd.addLast(removed.data);
+            }
+        }
+
+        if (odd.getSize() == 0) {
+            this.head = even.head;
+            this.tail = even.tail;
+            this.size = even.size;
+        } else if (even.getSize() == 0) {
+            this.head = odd.tail;
+            this.tail = odd.tail;
+            this.size = odd.getSize();
+        } else {
+            this.head = odd.head;
+            this.tail = even.tail;
+            odd.tail.next = even.head;
+            this.size = odd.getSize() + even.getSize();
+        }
     }
 
     public void deleteMAfterN(int m, int n) throws Exception {
