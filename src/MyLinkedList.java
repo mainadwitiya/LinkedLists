@@ -567,4 +567,63 @@ public class MyLinkedList {
             this.next = next;
         }
     }
+    
+    // edit this function to make a loop inside a Linked List, according to your preferences
+    public void makeLoop() {
+        this.tail.next = this.head.next.next;
+    }
+
+    // This function finds and removes loops in a LinkedList
+    public void findAndRemoveLoop() {
+        LoopPair loopPair = this.hasLoop(); // check if this List has a loop
+        if (loopPair.hasLoop) {             // if there is a loop
+            System.out.println("Loop found!");  // print loop found
+            this.removeLoop(loopPair.nodeAtK);  // remove the loop
+        } else {                            // Else print No Loop Found
+            System.out.println("No loop found!");
+        }
+    }
+
+    // Helper class to find and remove loops
+    private class LoopPair {
+        Node nodeAtK;     // this will store the position where fast and slow pointers meet to confirm there is a loop
+        boolean hasLoop;  // this boolean variable stores whether or not the LinkedList has a loop
+    }
+
+    private LoopPair hasLoop() {// returns an object of LoopPair so that we can also get the node at K from start of loop
+        Node slow = this.head;  // initialize both slow and fast pointers with this.head
+        Node fast = this.head;
+
+        LoopPair myPair = new LoopPair(); // make a LoopPair object
+
+        while (fast.next != null && fast.next.next != null) {   // if either hits null, it means the LinkedList ends and there's no loop
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (fast == slow) {         // if they meet, it means fast never hit null and there is a loop
+                myPair.hasLoop = true;  // set the boolean to true
+                myPair.nodeAtK = slow;  // return the position of either of fast/slow as this is at K distance from the start of loop
+                return myPair;          // return the object
+            }
+        }
+
+        myPair.hasLoop = false;         // if loop ends, it means a pointer hit null, so there is no loop
+        return myPair;                  // set the boolean to false and return the object
+    }
+
+    // if 'm' is the distance from head to start of loop, 'n' is the length of the loop, 'k' is the distance from start
+    // of the loop, to the point where fast and slow pointers meet.
+    // we start two pointers, one from the head, another from 'k', and run a loop till they meet, they will always meet
+    // at the last node of the loop, because  (m + k) is a multiple of 'n'
+    private void removeLoop(Node nodeAtK) {
+        Node tempNode = this.head;
+        while (tempNode.next != nodeAtK.next) {
+            tempNode = tempNode.next;
+            nodeAtK = nodeAtK.next;
+        }
+        // because they will meet at the last Node of the loop, set the next pointer of this node as null
+        nodeAtK.next = null;
+        System.out.println("Loop removed!");
+        this.tail = nodeAtK;
+    }
 }
