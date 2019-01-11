@@ -275,7 +275,7 @@ public class MyLinkedList {
 
     public boolean isPalindrome() {
         HeapMover left = new HeapMover(this.head);
-        return this.isPalindrome();
+        return this.isPalindrome(left, this.head);
     }
 
     private boolean isPalindrome(HeapMover left, Node right) {
